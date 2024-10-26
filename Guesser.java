@@ -1,3 +1,4 @@
+package guessingGame;
 import java.io.Console;
 
 /**
@@ -34,8 +35,8 @@ public class Guesser{
    * rules() method, next the doGuesses() method.
    */
   public void start(){
-    // call the rules method here
-    // call the doGuesses() method here
+    rules();
+    doGuesses();
   }
 
   private void rules(){
