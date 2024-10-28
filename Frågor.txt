@@ -1,0 +1,63 @@
+
+# Frågor.txt
+
+Vad är pull respektive push?
+
+Pull hämtar ändringar i filer från fjärr-repository till ditt lokala repository. 
+Push skickar dina lokala ändringar i filer till fjärr-repositoryt. 
+
+När använder man log respektive status?
+
+git status använder man när man vill se vad som har hänt och vad som kan hända. 
+Status ger en branchen man arbetar i, samt omdet finns filer kvar att committa och/eller om man glömt att gjöra git add på några ändringar. 
+git log visar användaren av som har hänt i den aktuella branchen, senaste commit ligger alltid överst och sen visar loggen resterande delen av committ historiken. 
+Du kan med git log se själva committ-strängen som kan behövas om du vill gå tillbaka i utvecklingen. Du kan också använda argumentet --oneline för att loggen ska bli mer överskådlig. 
+
+Vad är en Git branch och varför är de viktiga?
+
+Branchen symboliserar en särskild utveckling av en applikation. Med hjälp av branches kan man testa och arbeta med nya saker i koden i en isolerad struktur, utanför annan utveckling av applikationen. 
+Arbeta med fristående projekt, fixa en ny feature eller rätta buggar, det finns många användningsområden. Man kan ha flera olika branches. 
+
+Förklara skilllnaden med att rulla tillbaka koden till ett tidigare tillstånd och motivera varför.
+
+För gå tillbaka och ångra saker i din kod samt att ersätta till ett tidigare tillstånd används git reset, git restore och git revert. 
+Reset och Restore kan användas för att hantera enskilda filer eller ångra commits. 
+Git restore har ingen förändring på historik och återställer filer och kan gå till en specifik commit.
+Git reset kan ändra historik och ångra commits, kan ha olika effekter med hjälp av flaggor. 
+Jag använde till exempel git reset --mixed HEAD~1 för att flytta HEAD ett steg och avmarkera de ändringar jag gjort med git add vid ett tillfälle under uppgiften (se Exempel).
+HEAD betyder den senaste commit i historiken. git reset har också två flaggor till. 
+--soft, vilket flyttar HEAD men har kvar alla ändringar i stageing area och den nuvarande arbeteskatalogen och --hard som flyttar HEAD och tar bort alla ändringar permanent. 
+Med den sista får man vara mycket försiktig.
+Git revert skapar en en ny commit för att ångra en tidigare, tar säkert bort ändringar utan att påverka historiken alls.
+   
+
+# Exempel
+maxsve@Ign0tus-Laptop:~/GuessingGame$ git add run_game.sh
+maxsve@Ign0tus-Laptop:~/GuessingGame$ git commit -m "added script and made changes"
+[main 85dc17a] added script and made changes
+ 1 file changed, 20 insertions(+)
+ create mode 100755 run_game.sh
+maxsve@Ign0tus-Laptop:~/GuessingGame$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 4 commits.
+  (use "git push" to publish your local commits)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        questions.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+maxsve@Ign0tus-Laptop:~/GuessingGame$ nano questions.txt
+maxsve@Ign0tus-Laptop:~/GuessingGame$ git reset HEAD~1
+maxsve@Ign0tus-Laptop:~/GuessingGame$ git status
+On branch main
+Your branch is ahead of 'origin/main' by 3 commits.
+  (use "git push" to publish your local commits)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        questions.txt
+        run_game.sh
+
+nothing added to commit but untracked files present (use "git add" to track)  
+
